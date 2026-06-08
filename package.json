@@ -1,0 +1,21 @@
+{
+  "name": "nest-pos",
+  "version": "1.0.0",
+  "description": "Open-source inventory and point-of-sale for small shops — Node.js, JSON storage, no database.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/parrotplaylabs/nest-pos.git"
+  },
+  "homepage": "https://github.com/parrotplaylabs/nest-pos#readme",
+  "main": "server.js",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}

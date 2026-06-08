@@ -1,0 +1,16 @@
+{
+  "contactNumber": "(555) 123-4567",
+  "locations": [
+    {
+      "id": "downtown-popup",
+      "name": "Downtown Pop-up Shop",
+      "address": "123 Main Street, Suite 4"
+    },
+    {
+      "id": "riverside-market",
+      "name": "Riverside Weekend Market",
+      "address": "Riverside Park, Vendor Lot B"
+    }
+  ],
+  "schedules": {}
+}

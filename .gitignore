@@ -1,0 +1,5 @@
+node_modules/
+.DS_Store
+.nest-pos.pid
+nest-pos.log
+config/shop.json

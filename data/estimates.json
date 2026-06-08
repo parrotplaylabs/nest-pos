@@ -1,0 +1,24 @@
+[
+  {
+    "id": "c3d4e5f6-0001-4000-8000-000000000001",
+    "customerName": "Jamie Lee",
+    "lineItems": [
+      {
+        "itemId": "a1b2c3d4-0005-4000-8000-000000000005",
+        "itemName": "Watercolor Starter Kit",
+        "quantity": 1,
+        "unitPrice": 29.99,
+        "lineTotal": 29.99
+      },
+      {
+        "itemId": "a1b2c3d4-0002-4000-8000-000000000002",
+        "itemName": "Wooden Puzzle — Forest Animals",
+        "quantity": 2,
+        "unitPrice": 11.99,
+        "lineTotal": 23.98
+      }
+    ],
+    "subtotal": 53.97,
+    "createdAt": "2026-06-08T09:00:00.000Z"
+  }
+]

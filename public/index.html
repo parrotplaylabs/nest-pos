@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nest POS</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <h1 id="shop-title">Nest POS</h1>
+    <nav>
+      <button class="nav-btn active" data-view="dashboard">Dashboard</button>
+      <button class="nav-btn" data-view="inventory">Inventory</button>
+      <button class="nav-btn" data-view="import">Import CSV</button>
+      <button class="nav-btn" data-view="sale">New Sale</button>
+      <button class="nav-btn" data-view="sales">Sales Log</button>
+      <button class="nav-btn" data-view="pickup">Pick-Up</button>
+    </nav>
+  </header>
+
+  <main>
+    <section id="view-dashboard" class="view active">
+      <h2>Dashboard</h2>
+      <div class="stats-grid" id="stats-grid"></div>
+      <div class="panel">
+        <h3>Low stock alerts</h3>
+        <div id="low-stock-list" class="list"></div>
+      </div>
+      <div class="panel" style="margin-top:1rem">
+        <h3>Export</h3>
+        <p class="hint">Download backups or open in Excel / Google Sheets.</p>
+        <div class="toolbar toolbar-actions-only" style="margin:0">
+          <a href="/api/export/inventory.csv" class="primary" download>Download inventory CSV</a>
+          <a href="/api/export/sales.csv" class="primary" download>Download sales CSV</a>
+        </div>
+      </div>
+      <div class="panel" style="margin-top:1rem">
+        <h3>Data backup</h3>
+        <p class="hint">Download all JSON data (inventory, sales, estimates, pick-up). Use for backup or moving data between computers.</p>
+        <div class="toolbar toolbar-actions-only" style="margin:0">
+          <a href="/api/export/backup.json" class="primary" download>Download data backup</a>
+          <button type="button" id="btn-restore-backup" class="secondary">Restore from backup</button>
+          <input type="file" id="backup-file-input" accept=".json,application/json" hidden>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-inventory" class="view">
+      <div class="toolbar">
+        <h2>Inventory</h2>
+        <div class="toolbar-actions">
+          <button id="btn-add-item" class="primary">+ Add item</button>
+          <button id="btn-copy-inventory" class="secondary">Copy for social media</button>
+          <a href="/api/export/inventory.csv" class="secondary" download>Export CSV</a>
+        </div>
+      </div>
+      <input type="search" id="inventory-search" placeholder="Search items…" class="search">
+      <div class="table-wrap">
+        <table id="inventory-table">
+          <thead>
+            <tr>
+              <th>SKU</th>
+              <th>Name</th>
+              <th>Category</th>
+              <th>Qty</th>
+              <th>Wholesale</th>
+              <th>SRP</th>
+              <th>Margin</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="view-import" class="view">
+      <h2>Import / Restock from CSV</h2>
+      <p class="hint">
+        Paste CSV with headers. Required: <code>name</code>.
+        Optional: <code>quantity</code>, <code>wholesale</code>, <code>srp</code>, <code>sku</code>, <code>category</code>, <code>low_stock</code>.
+        Existing items (matched by SKU or name) get quantity added; new names create items.
+      </p>
+      <pre class="sample" id="csv-sample"></pre>
+      <textarea id="csv-input" rows="12" placeholder="Paste your CSV here…"></textarea>
+      <button id="btn-import" class="primary">Import</button>
+      <div id="import-result" class="result"></div>
+    </section>
+
+    <section id="view-sale" class="view">
+      <h2>Buyer estimate</h2>
+      <p class="hint">Build a quote from the items the buyer requested. Preview and copy to send to them.</p>
+
+      <div class="line-row sale-form-row estimate-customer-row">
+        <div class="line-cell line-cell-span-all">
+          <span class="line-label">Customer name</span>
+          <div class="line-control">
+            <input type="text" id="estimate-customer-name" class="line-input" placeholder="Optional">
+          </div>
+        </div>
+      </div>
+
+      <div id="estimate-lines"></div>
+      <button type="button" id="btn-add-estimate-line" class="secondary">+ Add item to estimate</button>
+      <div id="estimate-stock-alerts" class="estimate-stock-alerts hidden"></div>
+
+      <div class="panel estimate-panel">
+        <div class="toolbar" style="margin:0 0 .75rem">
+          <h3 style="margin:0">Preview</h3>
+          <div class="toolbar-actions">
+            <button type="button" id="btn-save-estimate" class="secondary">Save estimate</button>
+            <button type="button" id="btn-copy-estimate" class="secondary">Copy estimate</button>
+          </div>
+        </div>
+        <pre id="estimate-preview" class="share-preview"></pre>
+      </div>
+
+      <div class="panel">
+        <h3>Recent estimates (last 5)</h3>
+        <p class="hint">Saved estimates can be turned into a sale when the buyer is ready.</p>
+        <div id="estimate-history" class="estimate-history"></div>
+      </div>
+
+      <hr class="section-divider" id="record-sale-section">
+
+      <h2>Record Sale</h2>
+      <form id="sale-form">
+        <div class="line-row sale-form-row">
+          <div class="line-cell">
+            <span class="line-label">Buyer name</span>
+            <div class="line-control">
+              <input name="buyerName" class="line-input" required>
+            </div>
+          </div>
+          <div class="line-cell line-cell-span-ref">
+            <span class="line-label">Reference no.</span>
+            <div class="line-control">
+              <input name="referenceNumber" class="line-input" id="payment-ref-input" required>
+            </div>
+          </div>
+          <div class="line-cell">
+            <span class="line-label">Payment method</span>
+            <div class="line-control">
+              <select name="paymentMethod" class="line-input" id="payment-method-select"></select>
+            </div>
+          </div>
+          <div class="line-cell line-cell-action">
+            <span class="line-label line-label-empty" aria-hidden="true">&nbsp;</span>
+            <div class="line-control">
+              <span class="line-note line-note-spacer" aria-hidden="true">&nbsp;</span>
+            </div>
+          </div>
+        </div>
+        <div class="line-row sale-form-row sale-form-notes">
+          <div class="line-cell line-cell-span-all">
+            <span class="line-label">Notes</span>
+            <div class="line-control">
+              <input name="notes" class="line-input" placeholder="Optional">
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <h3>Items in this sale</h3>
+      <div id="sale-lines"></div>
+      <button type="button" id="btn-add-line" class="secondary">+ Add item to sale</button>
+
+      <div class="sale-summary" id="sale-summary"></div>
+      <button id="btn-complete-sale" class="primary btn-block-mobile">Complete sale</button>
+    </section>
+
+    <section id="view-sales" class="view">
+      <h2>Sales Log</h2>
+      <div class="toolbar toolbar-sales">
+        <input type="search" id="sales-search" placeholder="Search buyer or reference…" class="search" style="margin:0">
+        <div class="toolbar-actions">
+          <a href="/api/export/sales.csv" class="secondary" download>Export CSV</a>
+        </div>
+      </div>
+      <div id="sales-list" class="sales-list"></div>
+    </section>
+
+    <section id="view-pickup" class="view">
+      <h2>Pick-Up schedule</h2>
+      <p class="hint">Set today's pick-up points and hours, then copy the message for your page.</p>
+
+      <label class="pickup-date-label">Date
+        <input type="date" name="date" id="pickup-date" required>
+      </label>
+
+      <fieldset class="pickup-mode" id="pickup-mode">
+        <legend>Schedule for this day</legend>
+        <label class="pickup-mode-option">
+          <input type="radio" name="pickupMode" value="locations" checked>
+          <span>Pick-up at selected location(s)</span>
+        </label>
+        <label class="pickup-mode-option">
+          <input type="radio" name="pickupMode" value="none">
+          <span>No pick-up on this date</span>
+        </label>
+      </fieldset>
+
+      <div id="pickup-locations-wrap">
+        <h3 class="pickup-section-title">Pick-Up locations for this day</h3>
+        <p class="hint">Check each location that is open, then enter the hours customers can pick up.</p>
+        <div id="pickup-locations" class="pickup-locations"></div>
+      </div>
+
+      <div id="pickup-none-notice" class="pickup-none-notice hidden">
+        <p>A random “no pick-up today” message will be generated for your page. We will post pick-up hours when available.</p>
+      </div>
+
+      <label class="pickup-notes-label">Notes <span class="hint">(optional)</span>
+        <input name="notes" id="pickup-notes">
+      </label>
+
+      <div class="toolbar toolbar-actions-only pickup-actions">
+        <button type="button" id="btn-save-pickup" class="primary">Save schedule</button>
+        <button type="button" id="btn-copy-pickup" class="secondary">Copy for social media</button>
+      </div>
+
+      <div class="panel">
+        <h3>Preview</h3>
+        <pre id="pickup-preview" class="share-preview"></pre>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-hatched">Hatched by <a href="https://www.parrotplaylabs.com/" target="_blank" rel="noopener noreferrer">Parrot Playlabs</a> 🦜</div>
+    <div class="footer-gh">
+      <a href="https://github.com/parrotplaylabs" target="_blank" rel="noopener noreferrer">
+        <svg class="gh-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.73 0 8.33c0 3.68 2.29 6.79 5.47 7.9.4.08.55-.18.55-.4 0-.2-.01-.87-.01-1.58-2.01.45-2.53-.51-2.69-.97-.09-.24-.48-.98-.82-1.18-.28-.16-.68-.56-.01-.57.63-.01 1.08.6 1.23.85.72 1.25 1.87.9 2.33.69.07-.54.28-.9.5-1.11-1.78-.21-3.64-.92-3.64-4.08 0-.9.31-1.64.82-2.22-.08-.21-.36-1.04.08-2.17 0 0 .67-.22 2.2.85.64-.18 1.32-.27 2-.28.68 0 1.36.1 2 .28 1.53-1.07 2.2-.85 2.2-.85.44 1.13.16 1.96.08 2.17.51.58.82 1.31.82 2.22 0 3.17-1.87 3.87-3.65 4.08.29.25.54.73.54 1.49 0 1.08-.01 1.95-.01 2.22 0 .22.15.49.55.4A8.35 8.35 0 0 0 16 8.33C16 3.73 12.42 0 8 0Z"></path></svg>
+        @parrotplaylabs
+      </a>
+    </div>
+  </footer>
+
+  <dialog id="item-dialog">
+    <form method="dialog" id="item-form">
+      <h3 id="item-dialog-title">Add item</h3>
+      <input type="hidden" name="id">
+      <label>Name <input name="name" required></label>
+      <label>SKU <input name="sku" placeholder="Optional product code"></label>
+      <label>Category <input name="category" id="item-category-input"></label>
+      <label>Quantity <input name="quantity" type="number" min="0" value="0"></label>
+      <label>Low-stock alert at <input name="lowStockThreshold" type="number" min="0" id="item-low-stock-input"></label>
+      <label><span id="label-wholesale">Wholesale price</span> <input name="wholesalePrice" type="number" min="0" step="0.01"></label>
+      <label><span id="label-retail">Retail price (SRP)</span> <input name="srp" type="number" min="0" step="0.01"></label>
+      <div class="dialog-actions">
+        <button type="button" id="item-cancel">Cancel</button>
+        <button type="submit" class="primary">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast hidden"></div>
+  <script src="/js/app.js"></script>
+</body>
+</html>

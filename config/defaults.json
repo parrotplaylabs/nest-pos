@@ -1,0 +1,101 @@
+{
+  "shopName": "Nest POS",
+  "shopTagline": "Inventory & point of sale for small shops",
+  "country": "US",
+  "locale": "en-US",
+  "currency": {
+    "symbol": "$",
+    "locale": "en-US",
+    "code": "USD"
+  },
+  "contactNumber": "(555) 123-4567",
+  "defaultLowStockThreshold": 5,
+  "defaultPaymentMethod": "card",
+  "paymentMethods": [
+    { "value": "cash", "label": "Cash" },
+    { "value": "card", "label": "Card" },
+    { "value": "bank", "label": "Bank transfer" },
+    { "value": "digital_wallet", "label": "Digital wallet" },
+    { "value": "other", "label": "Other" }
+  ],
+  "paymentReferencePlaceholder": "Transaction reference",
+  "estimatePaymentInfo": "Mode of payment: cash, card, or bank transfer.\nFor cash payments, please prepare the exact amount.",
+  "pickupLocations": [
+    {
+      "id": "downtown-popup",
+      "name": "Downtown Pop-up Shop",
+      "address": "123 Main Street, Suite 4"
+    },
+    {
+      "id": "riverside-market",
+      "name": "Riverside Weekend Market",
+      "address": "Riverside Park, Vendor Lot B"
+    }
+  ],
+  "pickup": {
+    "hoursPlaceholder": "e.g. 9:00 AM - 5:00 PM",
+    "notesPlaceholder": "Optional notes for customers",
+    "scheduleHeader": "📍 PICK-UP SCHEDULE",
+    "activePointsLabel": "Today's pick-up points:",
+    "hoursTba": "Hours TBA",
+    "closingThanks": "Thank you!",
+    "contactLabel": "Contact:"
+  },
+  "labels": {
+    "wholesalePrice": "Wholesale price",
+    "retailPrice": "Retail price (SRP)",
+    "categoryPlaceholder": "category, type…",
+    "defaultCategory": "Other",
+    "itemsPurchased": "Items purchased:"
+  },
+  "backupFilePrefix": "nest-pos-backup",
+  "sampleCsv": "name,sku,quantity,wholesale,srp,category,low_stock\nCeramic Mug Set,MUG-001,12,8.50,14.99,home,5\nWooden Puzzle,PUZ-204,8,6.00,11.99,toys,3\nArtisan Candle,CAN-LAV,15,4.25,9.50,home,5",
+  "shareTemplates": {
+    "inventoryIntros": [
+      "Hi! Here's what we have available right now 🛍️",
+      "Available items — message us to order! ✨",
+      "Fresh stock update! Interested? Send us a message 😊",
+      "Check out what's in stock today 👇"
+    ],
+    "inventoryClosings": [
+      "Message us at {contact} to order. Thank you! 🙏",
+      "Contact us at {contact} to reserve yours.",
+      "Want to order? Reach us at {contact} — happy to help! ✨",
+      "Order via message at {contact}. We'll confirm availability right away! 😊"
+    ],
+    "estimateIntros": [
+      "Hi! Here's your estimate:",
+      "Hello! Estimate for your order:",
+      "Hi! Price estimate based on your request:"
+    ],
+    "estimateIntrosNamed": [
+      "Hi {name}! Here's your estimate:",
+      "Hello {name}! Estimate for your order:",
+      "Hi {name}! Price estimate based on your request:"
+    ],
+    "estimateClosings": [
+      "Message us at {contact} to confirm your order. Thank you! 🙏",
+      "Contact us at {contact} to proceed.",
+      "Reply to confirm — {contact}. Happy to help! ✨"
+    ],
+    "salesGreetings": [
+      "Thank you, {name}! 🙏",
+      "Shoutout to {name} — thank you for your order! 🎉",
+      "Thank you so much, {name}! 🙌",
+      "Thanks {name}! Your order means a lot to us! 💫"
+    ],
+    "salesClosings": [
+      "Thank you for your support — enjoy your purchase! ✨",
+      "We appreciate you! Come back anytime! 🎁",
+      "Thank you for choosing us! Your support keeps our shop going! ✨",
+      "Enjoy your order! See you on the next restock! 🚀"
+    ],
+    "noPickupMessages": [
+      "No pick-up scheduled for this date yet. We will post pick-up hours here once they are confirmed.",
+      "Pick-up hours for this date are not set yet. Please check back later.",
+      "No pick-up today. We will share the pick-up schedule here when available.",
+      "Pick-up schedule coming soon for this date. Thank you for your patience!"
+    ],
+    "copiedToast": "Copied — paste on your page"
+  }
+}

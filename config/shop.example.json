@@ -1,0 +1,53 @@
+{
+  "shopName": "Demo Craft Shop",
+  "shopTagline": "Inventory & point of sale",
+  "country": "US",
+  "locale": "en-US",
+  "currency": {
+    "symbol": "$",
+    "locale": "en-US",
+    "code": "USD"
+  },
+  "contactNumber": "(555) 123-4567",
+  "defaultLowStockThreshold": 5,
+  "defaultPaymentMethod": "card",
+  "paymentMethods": [
+    { "value": "cash", "label": "Cash" },
+    { "value": "card", "label": "Card" },
+    { "value": "bank", "label": "Bank transfer" },
+    { "value": "digital_wallet", "label": "Digital wallet" },
+    { "value": "other", "label": "Other" }
+  ],
+  "paymentReferencePlaceholder": "Transaction reference",
+  "estimatePaymentInfo": "Mode of payment: cash, card, or bank transfer.\nFor cash payments, please prepare the exact amount.",
+  "pickupLocations": [
+    {
+      "id": "downtown-popup",
+      "name": "Downtown Pop-up Shop",
+      "address": "123 Main Street, Suite 4"
+    },
+    {
+      "id": "riverside-market",
+      "name": "Riverside Weekend Market",
+      "address": "Riverside Park, Vendor Lot B"
+    }
+  ],
+  "pickup": {
+    "hoursPlaceholder": "e.g. 10:00 AM - 4:00 PM",
+    "notesPlaceholder": "Please message before heading over",
+    "scheduleHeader": "📍 PICK-UP SCHEDULE",
+    "activePointsLabel": "Today's pick-up points:",
+    "hoursTba": "Hours TBA",
+    "closingThanks": "Thank you!",
+    "contactLabel": "Contact:"
+  },
+  "labels": {
+    "wholesalePrice": "Wholesale price",
+    "retailPrice": "Retail price (SRP)",
+    "categoryPlaceholder": "home, toys, gifts…",
+    "defaultCategory": "Other",
+    "itemsPurchased": "Items purchased:"
+  },
+  "backupFilePrefix": "demo-shop-backup",
+  "sampleCsv": "name,sku,quantity,wholesale,srp,category,low_stock\nCeramic Mug Set,MUG-001,12,8.50,14.99,home,5\nWooden Puzzle,PUZ-204,8,6.00,11.99,toys,3"
+}

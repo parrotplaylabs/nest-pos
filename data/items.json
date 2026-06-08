@@ -1,0 +1,62 @@
+[
+  {
+    "id": "a1b2c3d4-0001-4000-8000-000000000001",
+    "name": "Ceramic Mug Set",
+    "sku": "MUG-001",
+    "quantity": 10,
+    "wholesalePrice": 8.5,
+    "srp": 14.99,
+    "category": "home",
+    "lowStockThreshold": 5,
+    "createdAt": "2026-06-01T10:00:00.000Z",
+    "updatedAt": "2026-06-07T15:30:00.000Z"
+  },
+  {
+    "id": "a1b2c3d4-0002-4000-8000-000000000002",
+    "name": "Wooden Puzzle — Forest Animals",
+    "sku": "PUZ-204",
+    "quantity": 1,
+    "wholesalePrice": 6,
+    "srp": 11.99,
+    "category": "toys",
+    "lowStockThreshold": 3,
+    "createdAt": "2026-06-01T10:00:00.000Z",
+    "updatedAt": "2026-06-08T13:13:03.275Z"
+  },
+  {
+    "id": "a1b2c3d4-0003-4000-8000-000000000003",
+    "name": "Artisan Lavender Candle",
+    "sku": "CAN-LAV",
+    "quantity": 14,
+    "wholesalePrice": 4.25,
+    "srp": 9.5,
+    "category": "home",
+    "lowStockThreshold": 5,
+    "createdAt": "2026-06-01T10:00:00.000Z",
+    "updatedAt": "2026-06-07T15:30:00.000Z"
+  },
+  {
+    "id": "a1b2c3d4-0004-4000-8000-000000000004",
+    "name": "Handwoven Tote Bag",
+    "sku": "BAG-TOTE",
+    "quantity": 0,
+    "wholesalePrice": 12,
+    "srp": 24.99,
+    "category": "accessories",
+    "lowStockThreshold": 4,
+    "createdAt": "2026-06-02T14:00:00.000Z",
+    "updatedAt": "2026-06-07T16:00:00.000Z"
+  },
+  {
+    "id": "a1b2c3d4-0005-4000-8000-000000000005",
+    "name": "Watercolor Starter Kit",
+    "sku": "ART-WC01",
+    "quantity": 6,
+    "wholesalePrice": 15,
+    "srp": 29.99,
+    "category": "art",
+    "lowStockThreshold": 3,
+    "createdAt": "2026-06-03T09:00:00.000Z",
+    "updatedAt": "2026-06-08T13:13:03.275Z"
+  }
+]
