@@ -6,6 +6,10 @@ Track stock, record sales, build buyer estimates, schedule pick-ups, and export 
 
 No database required. Configure your shop via environment variables or `config/shop.json`.
 
+## Demo
+
+[Watch the video demo](https://drive.proton.me/urls/1NPPDNZV5R#6LrI5Sg6q1sB)
+
 ## Features
 
 - Inventory with SKU, categories, wholesale/SRP, low-stock alerts
