@@ -1,5 +1,6 @@
 node_modules/
 .githooks/
+.cursor/
 .DS_Store
 .nest-pos.pid
 nest-pos.log
